@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "doners",
+  "info": {
+    "singularName": "doner",
+    "pluralName": "doners",
+    "displayName": "Doner"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "mobileNo": {
+      "type": "integer"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "Designation": {
+      "type": "string"
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "position": {
+      "type": "text"
+    }
+  }
+}
