@@ -35,6 +35,12 @@
     "names": {
       "type": "uid",
       "targetField": "Name"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "mappedBy": "restaurents"
     }
   }
 }

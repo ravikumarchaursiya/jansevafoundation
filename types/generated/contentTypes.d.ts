@@ -805,6 +805,11 @@ export interface ApiBoardMemberBoardMember extends Schema.CollectionType {
     mobileNo: Attribute.Integer;
     description: Attribute.Text;
     names: Attribute.UID<'api::board-member.board-member', 'Name'>;
+    categories: Attribute.Relation<
+      'api::board-member.board-member',
+      'manyToMany',
+      'api::category.category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -816,6 +821,42 @@ export interface ApiBoardMemberBoardMember extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::board-member.board-member',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCategoryCategory extends Schema.CollectionType {
+  collectionName: 'categories';
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'category';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Restaurents: Attribute.Relation<
+      'api::category.category',
+      'manyToMany',
+      'api::restaurent.restaurent'
+    >;
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::category.category',
       'oneToOne',
       'admin::user'
     > &
@@ -882,6 +923,43 @@ export interface ApiGalleryGallery extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::gallery.gallery',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRestaurentRestaurent extends Schema.CollectionType {
+  collectionName: 'restaurents';
+  info: {
+    singularName: 'restaurent';
+    pluralName: 'restaurents';
+    displayName: 'Restaurent';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    description: Attribute.Blocks;
+    categories: Attribute.Relation<
+      'api::restaurent.restaurent',
+      'manyToMany',
+      'api::category.category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::restaurent.restaurent',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::restaurent.restaurent',
       'oneToOne',
       'admin::user'
     > &
@@ -976,8 +1054,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::board-member.board-member': ApiBoardMemberBoardMember;
+      'api::category.category': ApiCategoryCategory;
       'api::doner.doner': ApiDonerDoner;
       'api::gallery.gallery': ApiGalleryGallery;
+      'api::restaurent.restaurent': ApiRestaurentRestaurent;
       'api::team-member.team-member': ApiTeamMemberTeamMember;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
     }
